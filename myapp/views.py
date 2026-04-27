@@ -6,11 +6,13 @@ from .models import Project
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    title = "Welcome to my Django App!"
+    return render(request, "index.html", {"title": title})
 
 
 def about(request):
-    return render(request, "about.html")
+    username = "fazt"
+    return render(request, "about.html", {"username": username})
 
 
 def hello(request, username=None):
@@ -18,7 +20,8 @@ def hello(request, username=None):
 
 
 def projects(request):
-    projects = list(Project.objects.values())
+    # projects = list(Project.objects.values())
+    projects = Project.objects.all()
     return render(request, "projects.html", {"projects": projects})
 
 
