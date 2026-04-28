@@ -14,6 +14,7 @@ class Task(models.Model):
     description = models.TextField()
     # Relationship to Project thru ForeignKey - CASCADE means if a project is deleted, all related tasks will also be deleted
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + " - " + self.project.name
