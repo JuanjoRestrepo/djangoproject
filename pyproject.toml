@@ -23,4 +23,4 @@ dev = [
 plugins = ["mypy_django_plugin.main"]
 
 [tool.mypy_django_plugin]
-django_settings_module = "djangoproject.settings"
+django_settings_module = "mysite.settings"
