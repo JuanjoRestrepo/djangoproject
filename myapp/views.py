@@ -6,11 +6,11 @@ from .models import Project, Task
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {"title": "Welcome to Django App"})
 
 
-def about(request):
-    return render(request, "about.html")
+def about(request, username="Juan Restrepo"):
+    return render(request, "about.html", {"username": username})
 
 
 def hello(request, username=None):
