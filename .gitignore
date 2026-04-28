@@ -30,3 +30,6 @@ logs/
 
 # skills - agent files
 .agents/
+
+# IDE Configuration
+.vscode/settings.json
