@@ -1,17 +1,15 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Project
+from .models import Project, Task
 
 
 # Create your views here.
 def index(request):
-    title = "Welcome to my Django App!"
-    return render(request, "index.html", {"title": title})
+    return render(request, "index.html", {"title": "Welcome to Django App"})
 
 
-def about(request):
-    username = "fazt"
+def about(request, username="Juan Restrepo"):
     return render(request, "about.html", {"username": username})
 
 
@@ -27,4 +25,5 @@ def projects(request):
 
 def tasks(request):
     # tasks = list(Task.objects.values())
-    return render(request, "tasks.html")
+    task = Task.objects.all()
+    return render(request, "tasks.html", {"tasks": task})

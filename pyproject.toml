@@ -3,7 +3,7 @@ name = "djangoproject"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
     "django>=6.0.4",
     "django-environ>=0.13.0",
@@ -23,4 +23,4 @@ dev = [
 plugins = ["mypy_django_plugin.main"]
 
 [tool.mypy_django_plugin]
-django_settings_module = "djangoproject.settings"
+django_settings_module = "mysite.settings"
