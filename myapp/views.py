@@ -1,7 +1,7 @@
 import logging
 
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .forms import CreateNewTask
 from .models import Project, Task
@@ -34,27 +34,15 @@ def tasks(request):
 
 
 def create_task(request):
-    form = CreateNewTask(request.POST or None)
+    form = CreateNewTask()
+    if request.method == "GET":
+        return render(request, "create_task.html", {"form": form})
 
-    title = request.GET.get("title")
-    description = request.GET.get("description")
-
-    # Allow quick creation through URL query params:
-    # /create_task/?title=a&description=b
-    if title and description:
-        project, _ = Project.objects.get_or_create(name="Default Project")
-        Task.objects.create(title=title, description=description, project=project)
-        logger.info("Task created from query params: %s", title)
-
-    # Standard form submit workflow
-    if request.method == "POST" and form.is_valid():
-        project, _ = Project.objects.get_or_create(name="Default Project")
+    else:
         Task.objects.create(
-            title=form.cleaned_data["title"],
-            description=form.cleaned_data["description"],
-            project=project,
+            title=request.POST["title"],
+            description=request.POST["description"],
+            project=Project.objects.get(id=2),
         )
-        logger.info("Task created from form submit: %s", form.cleaned_data["title"])
-        form = CreateNewTask()
-
-    return render(request, "create_task.html", {"form": form})
+        logger.info("Task created from form submit: %s", request.POST["title"])
+        return redirect("/tasks/")
