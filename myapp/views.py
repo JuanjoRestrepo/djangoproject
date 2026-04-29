@@ -23,7 +23,8 @@ def hello(request, username=None):
 
 
 def projects(request):
-    projects = list(Project.objects.values())
+    # projects = list(Project.objects.values())
+    projects = Project.objects.all()
     return render(request, "projects.html", {"projects": projects})
 
 
