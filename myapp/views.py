@@ -3,7 +3,7 @@ import logging
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import CreateNewTask
+from .forms import CreateNewProject, CreateNewTask
 from .models import Project, Task
 
 logger = logging.getLogger(__name__)
@@ -47,3 +47,14 @@ def create_task(request):
         )
         logger.info("Task created from form submit: %s", request.POST["title"])
         return redirect("/tasks/")
+
+
+def create_project(request):
+    form = CreateNewProject()
+    if request.method == "GET":
+        return render(request, "projects/create_project.html", {"form": form})
+
+    else:
+        project = Project.objects.create(name=request.POST["name"])
+        print(project)
+        return render(request, "projects/create_project.html", {"form": form})
