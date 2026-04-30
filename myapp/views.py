@@ -25,19 +25,19 @@ def hello(request, username=None):
 def projects(request):
     # projects = list(Project.objects.values())
     projects = Project.objects.all()
-    return render(request, "projects.html", {"projects": projects})
+    return render(request, "projects/projects.html", {"projects": projects})
 
 
 def tasks(request):
     # tasks = list(Task.objects.values())
     task = Task.objects.all()
-    return render(request, "tasks.html", {"tasks": task})
+    return render(request, "tasks/tasks.html", {"tasks": task})
 
 
 def create_task(request):
     form = CreateNewTask()
     if request.method == "GET":
-        return render(request, "create_task.html", {"form": form})
+        return render(request, "tasks/create_task.html", {"form": form})
 
     else:
         Task.objects.create(
