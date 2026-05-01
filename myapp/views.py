@@ -1,7 +1,7 @@
 import logging
 
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CreateNewProject, CreateNewTask
 from .models import Project, Task
@@ -58,3 +58,9 @@ def create_project(request):
         Project.objects.create(name=request.POST["name"])
         logger.info("Project created from form submit: %s", request.POST["name"])
         return redirect("projects")
+
+
+def project_detail(request, id):
+    project = get_object_or_404(Project, id=id)
+    tasks = Task.objects.filter(project_id=id)
+    return render(request, "projects/detail.html", {"project": project, "tasks": tasks})
